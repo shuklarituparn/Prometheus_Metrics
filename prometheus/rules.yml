@@ -1,0 +1,12 @@
+groups:
+  - name: Too many cat requests
+    rules:
+      - alert: CatCountGreaterThan10
+        expr: Cat_API_Ping_Counter > 5
+        for: 10s
+
+  - name: Too many dogs request
+    rules:
+      - alert: DodCountMorethan12
+        expr: Dog_API_Ping_Counter>12
+        for: 10s

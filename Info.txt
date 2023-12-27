@@ -1,0 +1,9 @@
+Google's four golden signals for system reliability
+
+
+1. Latency: How much time your service is taking to fulfill a request
+2. Traffic: How many requests are made to the service
+3. Saturation: How saturated the service is (for example how many percent of cpu are you using)
+4. Errors: How many requests out of the total is returned with errors
+
+
