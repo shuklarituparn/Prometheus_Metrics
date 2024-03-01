@@ -25,7 +25,7 @@ var DogApiPingCounter = prometheus.NewCounter(prometheus.CounterOpts{
 	Help: "Number of pings made to the endpoint",
 })
 
-func randomFileFromDir(dir string) (string, error) {
+func RandomFileFromDir(dir string) (string, error) {
 	files, err := os.ReadDir(dir)
 	if err != nil {
 		return "", err
@@ -39,11 +39,11 @@ func randomFileFromDir(dir string) (string, error) {
 	return files[randomIndex].Name(), nil
 }
 
-func catImageHandler(templatePath, imagesDir string) http.HandlerFunc {
+func CatImageHandler(templatePath, imagesDir string) http.HandlerFunc {
 
 	return func(w http.ResponseWriter, r *http.Request) {
 		catApiPingCounter.Inc()
-		imageName, err := randomFileFromDir(imagesDir)
+		imageName, err := RandomFileFromDir(imagesDir)
 		if err != nil {
 			http.Error(w, "Failed to get a random image", http.StatusInternalServerError)
 			return
@@ -62,10 +62,10 @@ func catImageHandler(templatePath, imagesDir string) http.HandlerFunc {
 		tmpl.Execute(w, data)
 	}
 }
-func dogImageHandler(templatePath, imageDir string) http.HandlerFunc {
+func DogImageHandler(templatePath, imageDir string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		DogApiPingCounter.Inc()
-		imageName, errorGettingImage := randomFileFromDir(imageDir)
+		imageName, errorGettingImage := RandomFileFromDir(imageDir)
 		if errorGettingImage != nil {
 			http.Error(w, "Error getting the file", http.StatusInternalServerError)
 			return
@@ -82,8 +82,8 @@ func main() {
 	prometheus.MustRegister(DogApiPingCounter)
 	http.Handle("/cats/", http.StripPrefix("/cats/", http.FileServer(http.Dir("cats"))))
 	http.Handle("/dogs/", http.StripPrefix("/dogs/", http.FileServer(http.Dir("dogs"))))
-	http.HandleFunc("/cat", catImageHandler("templates/cat_template.html", "cats"))
-	http.HandleFunc("/dog", dogImageHandler("templates/dog_template.html", "dogs"))
+	http.HandleFunc("/cat", CatImageHandler("templates/cat_template.html", "cats"))
+	http.HandleFunc("/dog", DogImageHandler("templates/dog_template.html", "dogs"))
 	http.Handle("/metrics", promhttp.Handler())
 	http.ListenAndServe(":8090", nil)
 }
