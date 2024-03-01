@@ -1,6 +1,8 @@
-# PROMETHEUS/GRAFANA
+# PROMETHEUS/GRAFANA/ALLURE-GO
 
 Этот проект использует Prometheus/Grafana для измерения и отображения метрик, а также Alertmanager для отправки уведомлений, если количество вызовов конечной точки превышает заданное число.
+
+Проект также использует allure для создания отчетов тесты
 
 ## Первые шаги
 
@@ -48,6 +50,17 @@
 ![Dashboard_Grafana](https://github.com/shuklarituparn/Prometheus_Metrics/assets/66947051/af756eec-6777-49cd-8de4-05a84cd6b517)
 
 ![Dashboard_Grafana_2](https://github.com/shuklarituparn/Prometheus_Metrics/assets/66947051/65342bba-2570-446b-b18b-6918ed016128)
+--
+
+# TESTING 
+
+ - Чтобы запустить тест, перейдите в папку, где находится файл `main.go`.
+ - Выполните команду: `go test`
+ - Будет сгенерирована папка с отчетом под названием `allure-report`,
+ - Выполните команду: `allure-serve`
+
+![Screenshot from 2024-03-01 21-29-30](https://github.com/shuklarituparn/Prometheus_Metrics/assets/66947051/2e77e5ef-0bb9-44cf-bf68-ab7a1aff82d1)
+
 
 # ENDPOINTS
 
@@ -59,6 +72,9 @@
 ![Dog_Endpoint](https://github.com/shuklarituparn/Prometheus_Metrics/assets/66947051/13fba459-bc6a-41ff-b2a3-49858ac95cdf)
 
 Для доступа к ним откройте `localhost:8090/cat` или `localhost:8090/dog`.
+
+
+
 
 # ALERTMANAGER
 
